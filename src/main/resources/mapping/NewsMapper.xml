@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wlm.dao.NewsMapper">
+  <resultMap id="BaseResultMap" type="com.wlm.pojo.News">
+    <id column="newsid" jdbcType="INTEGER" property="newsid" />
+    <result column="new_title" jdbcType="VARCHAR" property="newTitle" />
+    <result column="new_img" jdbcType="VARCHAR" property="newImg" />
+    <result column="memu_title" jdbcType="VARCHAR" property="memuTitle" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.wlm.pojo.News">
+    <result column="new_content" jdbcType="LONGVARCHAR" property="newContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    newsid, new_title, new_img, memu_title, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    new_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from news
+    where newsid = #{newsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from news
+    where newsid = #{newsid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wlm.pojo.News">
+    insert into news (newsid, new_title, new_img, 
+      memu_title, create_time, update_time, 
+      new_content)
+    values (#{newsid,jdbcType=INTEGER}, #{newTitle,jdbcType=VARCHAR}, #{newImg,jdbcType=VARCHAR}, 
+      #{memuTitle,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
+      #{newContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wlm.pojo.News">
+    insert into news
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="newsid != null">
+        newsid,
+      </if>
+      <if test="newTitle != null">
+        new_title,
+      </if>
+      <if test="newImg != null">
+        new_img,
+      </if>
+      <if test="memuTitle != null">
+        memu_title,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="newContent != null">
+        new_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="newsid != null">
+        #{newsid,jdbcType=INTEGER},
+      </if>
+      <if test="newTitle != null">
+        #{newTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newImg != null">
+        #{newImg,jdbcType=VARCHAR},
+      </if>
+      <if test="memuTitle != null">
+        #{memuTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="newContent != null">
+        #{newContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wlm.pojo.News">
+    update news
+    <set>
+      <if test="newTitle != null">
+        new_title = #{newTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newImg != null">
+        new_img = #{newImg,jdbcType=VARCHAR},
+      </if>
+      <if test="memuTitle != null">
+        memu_title = #{memuTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="newContent != null">
+        new_content = #{newContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where newsid = #{newsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wlm.pojo.News">
+    update news
+    set new_title = #{newTitle,jdbcType=VARCHAR},
+      new_img = #{newImg,jdbcType=VARCHAR},
+      memu_title = #{memuTitle,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      new_content = #{newContent,jdbcType=LONGVARCHAR}
+    where newsid = #{newsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wlm.pojo.News">
+    update news
+    set new_title = #{newTitle,jdbcType=VARCHAR},
+      new_img = #{newImg,jdbcType=VARCHAR},
+      memu_title = #{memuTitle,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR}
+    where newsid = #{newsid,jdbcType=INTEGER}
+  </update>
+</mapper>

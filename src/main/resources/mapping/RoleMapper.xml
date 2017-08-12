@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wlm.dao.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.wlm.pojo.Role">
+    <id column="roleid" jdbcType="INTEGER" property="roleid" />
+    <result column="role" jdbcType="INTEGER" property="role" />
+    <result column="amin_role_id" jdbcType="INTEGER" property="aminRoleId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    roleid, role, amin_role_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where roleid = #{roleid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from role
+    where roleid = #{roleid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wlm.pojo.Role">
+    insert into role (roleid, role, amin_role_id
+      )
+    values (#{roleid,jdbcType=INTEGER}, #{role,jdbcType=INTEGER}, #{aminRoleId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wlm.pojo.Role">
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleid != null">
+        roleid,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="aminRoleId != null">
+        amin_role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="aminRoleId != null">
+        #{aminRoleId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wlm.pojo.Role">
+    update role
+    <set>
+      <if test="role != null">
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="aminRoleId != null">
+        amin_role_id = #{aminRoleId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where roleid = #{roleid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wlm.pojo.Role">
+    update role
+    set role = #{role,jdbcType=INTEGER},
+      amin_role_id = #{aminRoleId,jdbcType=INTEGER}
+    where roleid = #{roleid,jdbcType=INTEGER}
+  </update>
+</mapper>
